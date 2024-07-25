@@ -1,0 +1,91 @@
+import java.util.Scanner;
+public class Main {
+	public static String[] modify(String str) {
+		if(str.length() % 3 == 0) {
+			
+			String[] res = new String[3];
+			for(int i=0;i<3;i++) {
+				for(int j=i*3;j<3*(i+1);j++) {
+					if(res[i] != null)
+					res[i] += str.charAt(j);
+					else 
+						res[i] = String.valueOf(str.charAt(j));
+				}
+			}
+			return res;
+		}
+		else if(str.length() % 3 == 1) {
+			String[] res = new String[3];
+			int index = 0;
+			for(int i=0;i<3;i++) {
+				if(i != 1) {
+					if(res[i] != null)
+					res[i] += str.charAt(index++);
+					else
+						res[i] = String.valueOf(str.charAt(index++));
+				}
+				else {
+					
+					res[i] = String.valueOf(str.charAt(index++));
+					res[i] +=str.charAt(index++);
+					
+				}
+			}
+			return res;
+		}
+		else {
+			String res[] = new String[3];
+			
+			int index =0;
+			for(int i=0;i<3;i++) {
+				if(i != 1) {
+				res[i] = String.valueOf(str.charAt(index++));
+				res[i] += str.charAt(index++);
+				}
+				else {
+					res[i] = String.valueOf(str.charAt(index++));
+				}
+			}
+			return res;
+		}
+	}
+	public static boolean isUpper(char c) {
+		return c>=65 && c<=90;
+	}
+	public static boolean isLower(char c) {
+		return c>= 97 && c<=122;
+	}
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String str1 = sc.next();
+		String str2 = sc.next();
+		String str3 = sc.next();
+		
+		 String[] split_str1 = modify(str1);
+		 String[] split_str2 = modify(str2);
+		 String[] split_str3 = modify(str3);
+		String res1 = split_str1[0] + split_str2[1]+split_str3[2];
+		String res2 = split_str1[1]+split_str2[2]+split_str3[0];
+		String res3 = split_str1[2]+split_str2[0]+split_str3[1];
+		String[] res = {res1,res2,res3};
+		String[] ans = new String[3];
+		int count = 0;
+		for(int i=0;i<3;i++) {
+			String word = res[i];
+			String result ="";
+			for(char c:word.toCharArray()) {
+				if(isUpper(c)) {
+					char ch = (char) (c+32);
+					result+=ch;
+				}
+				else if(isLower(c)){
+					char ch = (char)(c-32);
+					result+=ch;
+				}
+			}
+			ans[count++] = result;
+		}
+		for(int i=0;i<3;i++)
+			System.out.println(ans[i]);
+	}
+}
